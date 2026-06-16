@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 :root {
-    --bg-color: #f0f2f0;
+    --bg-color: #f1f1f1;
     --green: #0f5830;
     --green-dark: #0d2e1c;
     --green-light: #e8f5ee;
-    --text: #1a1a1a;
+    --text: #011f26;
     --text-muted: #6b7280;
     --border: #d1d5db;
 }
@@ -14,7 +14,7 @@ html,
 body {
     margin: 0;
     padding: 0;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
@@ -230,66 +230,119 @@ main {
     color: var(--green);
 }
 
-/* ── Dashboard ───────────────────────────── */
+/* ── Layout com sidebar ──────────────────── */
 
-.dashboard {
-    background-color: #ededed;
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+}
+
+.app-content {
+    flex: 1;
+    min-width: 0;
 }
 
 .dashboard__body {
     max-width: 960px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 40px 40px;
 }
 
-header {
+/* ── Sidebar ─────────────────────────────── */
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 28px 18px;
     background-color: #ffffff;
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    /* zera o estilo do <aside> do login */
+    border-radius: 0;
+    color: inherit;
+    align-items: stretch;
+    justify-content: flex-start;
 }
 
-.dashboard__header {
+.sidebar__brand {
+    padding: 0 12px;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.1;
+}
+
+.sidebar__brand span {
+    display: block;
+    margin-top: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    text-transform: none;
+    letter-spacing: 0;
+    opacity: 1;
+}
+
+.sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 36px;
+}
+
+.sidebar__link {
     display: flex;
     align-items: center;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 40px;
-}
-
-.dashboard__title {
-    font-size: 16px;
-    color: var(--green);
-}
-
-.dashboard__title span {
-    display: block;
-    font-size: 12px;
-    color: #cccccc;
-}
-
-.dashboard__menu {
-    margin-left: auto;
-}
-
-.dashboard__menu a {
-    display: inline-block;
-    margin: 0 8px;
-    color: var(--green);
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
     text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
 }
 
-.dashboard__menu a:hover {
-    text-decoration: underline;
+.sidebar__link:hover {
+    background-color: var(--green-light);
+    color: var(--green);
+}
+
+.sidebar__link.active {
+    background-color: var(--green);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sidebar__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar__icon svg {
+    width: 20px;
+    height: 20px;
 }
 
 .dashboard__hero {
     margin: 40px 0;
     font-size: 14px;
-    color: #999999;
+    color: var(--green);
+    font-weight: 600;
 }
 
 .dashboard__hero h2 {
     margin-bottom: 0px;
     font-size: 32px;
-    color: var(--green);
+    color: var(--text);
+    font-weight: 800;
 }
 
 /* ── Cards ───────────────────────────────── */
@@ -364,6 +417,7 @@ header {
 
 .card--33 {
     width: 33%;
+    border-radius: 20px;
 }
 
 .card--33 .card__body {
@@ -375,4 +429,398 @@ header {
     text-transform: none;
     color: #333333;
     background-color: transparent;
+}
+
+/* ── Título de página ────────────────────── */
+
+.page-title {
+    margin: 40px 0 24px;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* ── Disciplinas ─────────────────────────── */
+
+.disciplinas__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.disciplina-card {
+    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.disciplina-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.disciplina-card__nome {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.disciplina-card__prof {
+    margin: 2px 0 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+}
+
+.disciplina-card__status {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 6px;
+    letter-spacing: 0.4px;
+}
+
+.disciplina-card__status--curso {
+    color: var(--green);
+    background-color: var(--green-light);
+}
+
+.disciplina-card__status--proximo {
+    color: var(--text-muted);
+    background-color: #e9ebee;
+}
+
+.disciplina-card__label {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.disciplina-card__bar {
+    height: 6px;
+    margin-top: 8px;
+    border-radius: 4px;
+    background-color: #e5e7eb;
+}
+
+.disciplina-card__bar div {
+    height: 6px;
+    border-radius: 4px;
+    background-color: var(--green);
+}
+
+.disciplina-card__btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: var(--green);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.disciplina-card__btn:hover {
+    background-color: var(--green-dark);
+}
+
+/* ── Perfil ──────────────────────────────── */
+
+.perfil__head {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 40px 0 28px;
+}
+
+.perfil__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: var(--green);
+    color: var(--green-light);
+    font-size: 20px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.perfil__nome {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.perfil__sub {
+    margin: 4px 0 0;
+    font-size: 15px;
+    color: var(--text-muted);
+}
+
+.perfil__tabs {
+    display: flex;
+    gap: 28px;
+    border-bottom: 1px solid var(--border);
+}
+
+.perfil__tab {
+    padding: 12px 0;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+.perfil__tab--active {
+    color: var(--green);
+    font-weight: 600;
+    border-bottom-color: var(--green);
+}
+
+.perfil__table {
+    margin-top: 24px;
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.perfil__row {
+    display: flex;
+    padding: 20px 24px;
+    border-bottom: 1px solid #eef0f2;
+}
+
+.perfil__row:last-child {
+    border-bottom: none;
+}
+
+.perfil__row-label {
+    width: 40%;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.perfil__row-value {
+    font-size: 14px;
+    color: var(--text);
+}
+
+.perfil__row-value--empty {
+    color: var(--text-muted);
+}
+
+/* ── Tutor IA ────────────────────────────── */
+
+.tutor {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 80px);
+}
+
+.tutor__chat {
+    flex: 1;
+    padding: 32px 0;
+}
+
+.tutor__vazio {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.tutor__msg {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.tutor__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.tutor__avatar--user {
+    background-color: var(--green);
+}
+
+.tutor__avatar--ia {
+    background-color: #111111;
+}
+
+.tutor__author {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.tutor__text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+.tutor__loading,
+.tutor__erro {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.tutor__erro {
+    color: #b91c1c;
+}
+
+.tutor__form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 8px 8px 20px;
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+}
+
+.tutor__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text);
+}
+
+.tutor__send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--green);
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.tutor__send:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.tutor__footer {
+    margin: 12px 0 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* ── Responsivo (mobile) ─────────────────── */
+
+@media (max-width: 768px) {
+    /* Sidebar vira uma barra horizontal no topo */
+    .app-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 14px 20px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar__nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 0;
+        margin-left: auto;
+    }
+
+    .sidebar__link {
+        padding: 8px 12px;
+    }
+
+    .dashboard__body {
+        padding: 0 20px 20px;
+    }
+
+    .disciplinas__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .card__body {
+        width: 100%;
+    }
+
+    .card__group {
+        flex-direction: column;
+    }
+
+    .card--33 {
+        width: 100%;
+    }
+
+    .perfil__row {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .perfil__row-label {
+        width: 100%;
+    }
+
+    /* Tela de login/cadastro: esconde apenas o painel lateral (nao a sidebar) */
+    aside:not(.sidebar) {
+        display: none;
+    }
+
+    main {
+        width: 100%;
+    }
+
+    .cadastro {
+        width: 86%;
+    }
 }

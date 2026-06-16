@@ -36,8 +36,8 @@ export default function LoginPage() {
                         </p>
                         <form onSubmit={handleSubmit}>
                             <InputField
-                                label="Usuário"
-                                placeholder="Digite seu usuário"
+                                label="Usuário do GitHub"
+                                placeholder="Digite seu usuário do GitHub"
                                 type="text"
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
