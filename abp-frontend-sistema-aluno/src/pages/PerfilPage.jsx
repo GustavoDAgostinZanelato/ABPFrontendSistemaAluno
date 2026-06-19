@@ -5,7 +5,7 @@ import { useUsuario } from "../context/UsuarioContext";
 const ABAS = ['Dados Pessoais', 'Configurações', 'Segurança'];
 
 export default function PerfilPage() {
-    const { username } = useUsuario();
+    const { username, usuario } = useUsuario();
     const [abaAtiva, setAbaAtiva] = useState('Dados Pessoais');
 
     const nome = username || 'João Silva';
@@ -16,10 +16,18 @@ export default function PerfilPage() {
         .join('')
         .toUpperCase();
 
+    // Dados vindos da API do GitHub (quando o login foi feito por ela).
+    // O GitHub normalmente nao expoe o e-mail publico (vem null), entao,
+    // quando ausente, derivamos o endereco no-reply oficial do perfil.
+    const nomePreferencia = usuario?.login || 'Jonh';
+    const email = usuario
+        ? (usuario.email || `${usuario.login}@users.noreply.github.com`)
+        : 'joao.silva@satc.edu.br';
+
     const dados = [
         { label: 'Nome Completo', valor: nome },
-        { label: 'Nome de Preferência', valor: 'Jonh' },
-        { label: 'Endereço de E-mail', valor: 'joao.silva@satc.edu.br' },
+        { label: 'Nome de Preferência', valor: nomePreferencia },
+        { label: 'Endereço de E-mail', valor: email },
         { label: 'Matrícula / CPF', valor: '***.***.***-89' },
         { label: 'Número de Telefone', valor: '' },
     ];
@@ -27,7 +35,11 @@ export default function PerfilPage() {
     return (
         <PortalLayout>
             <div className="perfil__head">
-                <div className="perfil__avatar">{iniciais}</div>
+                <div className="perfil__avatar">
+                    {usuario?.avatar_url
+                        ? <img src={usuario.avatar_url} alt={nome} />
+                        : iniciais}
+                </div>
                 <div>
                     <h2 className="perfil__nome">{nome}</h2>
                     <p className="perfil__sub">Engenharia de Software • 3º Ano</p>

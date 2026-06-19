@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useUsuario } from "../context/UsuarioContext";
 
 const ITENS = [
     {
@@ -16,14 +17,19 @@ const ITENS = [
     {
         to: '/perfil',
         label: 'Perfil'
-    },
-    {
-        to: '/',
-        label: 'Sair da conta'
     }
 ];
 
 export default function Sidebar() {
+    const navigate = useNavigate();
+    const { logout } = useUsuario();
+
+    // Limpa o Context e volta para a tela de login.
+    function handleLogout() {
+        logout();
+        navigate('/');
+    }
+
     return (
         <aside className="sidebar">
             <div className="sidebar__brand">
@@ -34,10 +40,17 @@ export default function Sidebar() {
             <nav className="sidebar__nav">
                 {ITENS.map(item => (
                     <NavLink key={item.to} to={item.to} className="sidebar__link">
-                        <span className="sidebar__icon">{item.icon}</span>
                         {item.label}
                     </NavLink>
                 ))}
+
+                <button
+                    type="button"
+                    className="sidebar__link sidebar__logout"
+                    onClick={handleLogout}
+                >
+                    Sair da conta
+                </button>
             </nav>
         </aside>
     );

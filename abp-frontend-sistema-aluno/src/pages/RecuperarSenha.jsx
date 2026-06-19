@@ -30,10 +30,10 @@ export default function RecuperarSenha() {
     return (
         <div className="container">
             <AsideBlock />
-            <button type="button" className="btn-voltar" onClick={() => navigate('/')}>←</button>
 
             <main>
                 <div className="cadastro">
+                    <button type="button" className="btn-voltar" onClick={() => navigate('/')}>←</button>
                     <h1>Esqueceu a senha</h1>
                     <p>Informe seu e-mail para enviarmos um link para redefinir sua senha.</p>
 

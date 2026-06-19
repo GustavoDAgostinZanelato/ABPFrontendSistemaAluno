@@ -3,6 +3,8 @@ import InputField from "../components/InputField";
 import AsideBlock from "../components/AsideBlock";
 import "../styles.css";
 import { useNavigate } from 'react-router-dom'
+import { maskPhone } from "../utils/masks";
+import { useUsuario } from "../context/UsuarioContext";
 
 export default function CadastroUsuario2() {
     const [nome, setNome] = useState('');
@@ -11,6 +13,7 @@ export default function CadastroUsuario2() {
     const [senha, setSenha] = useState('');
     const [erro, setErro] = useState('');
     const navigate = useNavigate()
+    const { setUsername } = useUsuario();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -18,11 +21,17 @@ export default function CadastroUsuario2() {
             setErro('É necessário preencher todos os campos')
             return;
         }
+        if (telefone.length !== 15) {
+            setErro('Telefone informado é inválido')
+            return;
+        }
+        if (senha.length < 6) {
+            setErro('A senha deve ter no mínimo 6 dígitos')
+            return;
+        }
         setErro('');
-        console.log('Nome: ', nome);
-        console.log('Telefone: ', telefone);
-        console.log('Email: ', email);
-        console.log('Senha: ', senha);
+        // Salva o nome digitado no Context para ser exibido nas telas internas.
+        setUsername(nome);
         navigate('/dashboard')
     }
 
@@ -30,9 +39,9 @@ export default function CadastroUsuario2() {
         <>
             <div className="container">
                 <AsideBlock />
-                <button type="button" className="btn-voltar" onClick={() => navigate('/cadastroUsuario1')}>←</button>
                 <main>
                     <div className="cadastro">
+                        <button type="button" className="btn-voltar" onClick={() => navigate('/cadastroUsuario1')}>←</button>
                         <h1>Cadastre-se</h1>
                         <p>Passo 2 de 2. Por favor, insira os dados para finalizar.</p>
 
@@ -45,12 +54,13 @@ export default function CadastroUsuario2() {
                                 onChange={e => setNome(e.target.value)}
                             />
 
-                            <InputField 
+                            <InputField
                                 label="Telefone"
                                 placeholder="(99) 99999-9999"
                                 type="tel"
                                 value={telefone}
-                                onChange={e => setTelefone(e.target.value)}
+                                onChange={e => setTelefone(maskPhone(e.target.value))}
+                                maxLength={15}
                             />
 
                             <InputField 
@@ -67,6 +77,7 @@ export default function CadastroUsuario2() {
                                 type="password"
                                 value={senha}
                                 onChange={e => setSenha(e.target.value)}
+                                minLength={6}
                             />
                             {erro && <p className="login-erro">{erro}</p>}
 

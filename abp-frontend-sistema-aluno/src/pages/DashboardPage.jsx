@@ -1,13 +1,6 @@
-import { useEffect, useState } from "react";
-import { buscarUsuario } from "../services/githubServices";
 import CardInfo from "../components/CardInfo";
 import { useUsuario } from "../context/UsuarioContext";
 import PortalLayout from "../components/PortalLayout";
-
-// Chave temporaria: a API do GitHub esta estourando o rate limit (timeout).
-// Deixe como `false` para renderizar a Dashboard sem depender da API.
-// Volte para `true` quando quiser reativar a busca no GitHub.
-const USAR_API_GITHUB = false;
 
 function getSaudacao() {
     const hora = new Date().getHours();
@@ -26,40 +19,9 @@ function getDataAtual() {
 }
 
 export default function DashboardPage() {
-    const { username } = useUsuario();
-
-    const [usuario, setUsuario] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [erro, setErro] = useState('');
-    const [busca] = useState(username);
-
-    useEffect(() => {
-        if (!USAR_API_GITHUB) {
-            setLoading(false);
-            return;
-        }
-        if (!busca) {
-            setErro('Nenhum usuário informado. Faça login novamente.');
-            setLoading(false);
-            return;
-        }
-        async function carregar() {
-            setLoading(true);
-            setErro('');
-            try{
-                const dados = await buscarUsuario(busca);
-                setUsuario(dados);
-            } catch (err) {
-                setErro(err.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-        carregar();
-    }, [busca]);
-
-    if (loading) return <p>Carregando perfil...</p>
-    if (erro) return <p>{erro}</p>
+    // Os dados do usuario ja foram carregados no login (API do GitHub) e
+    // compartilhados via Context, entao a Dashboard apenas os consome.
+    const { username, usuario } = useUsuario();
 
     const nome = username || usuario?.name || usuario?.login || 'Aluno';
 

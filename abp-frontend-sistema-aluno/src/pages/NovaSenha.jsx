@@ -37,10 +37,10 @@ export default function NovaSenha() {
     return (
         <div className="container">
             <AsideBlock />
-            <button type="button" className="btn-voltar" onClick={() => navigate('/recuperarSenha')}>←</button>
 
             <main>
                 <div className="cadastro">
+                    <button type="button" className="btn-voltar" onClick={() => navigate('/recuperarSenha')}>←</button>
                     <h1>Nova senha</h1>
                     <p>Crie uma nova senha para acessar sua conta.</p>
 
